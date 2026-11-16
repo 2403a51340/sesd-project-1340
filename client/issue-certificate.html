@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Issue Certificate – CertiTrust Platform</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="dashboard-sidebar" id="dashboardSidebar">
+      <div class="sidebar-header">
+        <a href="/" class="brand-logo brand-logo-light">
+          <div class="brand-icon-shield">
+            <i data-lucide="shield-check" style="width: 20px; height: 20px;"></i>
+          </div>
+          <span>CertiTrust</span>
+        </a>
+        <span class="sidebar-badge">Issuance Portal</span>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-item">
+          <a href="/institution-dashboard" class="sidebar-link">
+            <i data-lucide="layout-dashboard"></i>
+            <span>Overview</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="/issue-certificate" class="sidebar-link active">
+            <i data-lucide="award"></i>
+            <span>Issue Certificate</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="/institution-dashboard#certificatesSection" class="sidebar-link">
+            <i data-lucide="file-check"></i>
+            <span>Manage Certificates</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="/directory" class="sidebar-link">
+            <i data-lucide="book-open"></i>
+            <span>Public Directory</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="/verify" class="sidebar-link" target="_blank">
+            <i data-lucide="search"></i>
+            <span>Public Verifier</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="user-profile-widget">
+          <div class="user-avatar" id="sidebarUserAvatar">I</div>
+          <div class="user-info">
+            <div class="user-name" id="sidebarUserName">Registrar Office</div>
+            <div class="user-role" id="sidebarUserRole">Authorized Issuer</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="dashboard-main">
+      <header class="dashboard-topbar">
+        <div class="topbar-left">
+          <button class="mobile-toggle-btn" id="mobileSidebarToggle">
+            <i data-lucide="menu"></i>
+          </button>
+          <h2 class="page-heading-title">Issue Digital Credential</h2>
+        </div>
+        <div class="topbar-right">
+          <a href="/institution-dashboard" class="btn btn-secondary btn-sm">
+            <i data-lucide="arrow-left"></i> Return to Dashboard
+          </a>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <!-- Two-column Issuance Layout: Form on Left, Live Interactive Preview on Right -->
+        <div class="issue-layout-grid">
+
+          <!-- Left: Issuance Form -->
+          <div class="card" style="padding: 32px; box-shadow: var(--shadow-md);">
+            <div style="margin-bottom: 24px; border-bottom: 1px solid var(--color-border); padding-bottom: 16px;">
+              <h3 style="font-size: 1.35rem; color: var(--color-primary-navy);">Credential Information</h3>
+              <p style="font-size: 0.875rem; margin-top: 4px;">Fill in the recipient and curriculum details. A cryptographically unique Certificate ID will be assigned automatically.</p>
+            </div>
+
+            <form id="issueCertificateForm">
+              <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 16px;">
+                <div class="form-group">
+                  <label class="form-label" for="studentName">Student Full Name <span class="required">*</span></label>
+                  <input type="text" id="studentName" class="form-input" placeholder="e.g. Elena Rostova" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="studentId">Student ID / Roll No <span class="required">*</span></label>
+                  <input type="text" id="studentId" class="form-input" placeholder="e.g. STU-2026-9043" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="studentEmail">Student Official Email <span class="required">*</span></label>
+                <input type="email" id="studentEmail" class="form-input" placeholder="elena.rostova@domain.com" required>
+                <div class="form-hint">Used for recipient notification and account verification matching.</div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="courseName">Course or Program Completed <span class="required">*</span></label>
+                <input type="text" id="courseName" class="form-input" placeholder="e.g. Cryptographic Security & Identity Infrastructure" required>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 16px;">
+                <div class="form-group">
+                  <label class="form-label" for="certificateTitle">Certificate Title <span class="required">*</span></label>
+                  <input type="text" id="certificateTitle" class="form-input" value="Certificate of Completion" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="grade">Grade / Distinction</label>
+                  <input type="text" id="grade" class="form-input" placeholder="e.g. First Class Honours">
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div class="form-group">
+                  <label class="form-label" for="issueDate">Conferral / Issue Date <span class="required">*</span></label>
+                  <input type="date" id="issueDate" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="expiryDate">Expiration Date (Optional)</label>
+                  <input type="date" id="expiryDate" class="form-input">
+                  <div class="form-hint">Leave blank if certificate never expires.</div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="additionalInfo">Additional Remarks / Evaluation Honors</label>
+                <textarea id="additionalInfo" class="form-textarea" placeholder="Special thesis defense, capstone evaluation, or accreditation notes..."></textarea>
+              </div>
+
+              <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--color-border); display: flex; justify-content: flex-end; gap: 12px;">
+                <a href="/institution-dashboard" class="btn btn-outline">Cancel</a>
+                <button type="submit" class="btn btn-primary btn-lg">
+                  <i data-lucide="check-circle"></i> Issue & Catalogue Credential
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Right: Real-Time Live Certificate Preview -->
+          <div>
+            <div style="position: sticky; top: 94px;">
+              <div style="margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
+                <div style="font-weight: 700; font-size: 0.9rem; text-transform: uppercase; color: var(--color-text-secondary); letter-spacing: 0.05em;">
+                  Live Certificate Vector Preview
+                </div>
+                <span class="status-pill status-valid">Interactive Sync</span>
+              </div>
+
+              <div class="certificate-preview-card" style="box-shadow: var(--shadow-lg); padding: 24px;">
+                <div class="certificate-inner-border" style="padding: 24px;">
+                  <span class="cert-corner-dot cert-corner-tl"></span>
+                  <span class="cert-corner-dot cert-corner-tr"></span>
+                  <span class="cert-corner-dot cert-corner-bl"></span>
+                  <span class="cert-corner-dot cert-corner-br"></span>
+
+                  <div class="cert-top-badge" style="margin-bottom: 16px; padding-bottom: 12px;">
+                    <div class="cert-issuer-info">
+                      <div class="brand-icon-shield" style="width: 24px; height: 24px;">
+                        <i data-lucide="shield" style="width: 14px; height: 14px;"></i>
+                      </div>
+                      <div>
+                        <div id="previewInstitutionName" style="font-size: 0.8rem; font-weight: 700; color: var(--color-primary-navy);">Accredited Institution</div>
+                        <div style="font-size: 0.7rem; color: var(--color-royal-blue);">CertiTrust Verified Issuer</div>
+                      </div>
+                    </div>
+                    <span class="status-pill status-valid" style="font-size: 0.65rem;">SAMPLE</span>
+                  </div>
+
+                  <div class="cert-heading-title" id="previewCertTitle" style="font-size: 1.35rem; margin-bottom: 4px;">CERTIFICATE OF COMPLETION</div>
+                  <div class="cert-recipient-intro" style="font-size: 0.85rem; margin-bottom: 4px;">This is proudly presented to</div>
+                  <div class="cert-recipient-name" id="previewStudentName" style="font-size: 1.6rem; margin-bottom: 8px;">Student Full Name</div>
+                  <div style="text-align: center; font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 12px;" id="previewStudentId">Student ID: STU-XXXX-XXXX</div>
+
+                  <div class="cert-course-desc" style="font-size: 0.85rem; margin-bottom: 16px;">
+                    for successfully demonstrating mastery and completion of
+                    <span class="cert-course-name" id="previewCourseName" style="font-size: 1rem;">Selected Course or Certification Program</span>
+                  </div>
+
+                  <div class="cert-footer-meta" style="padding-top: 12px; margin-top: 16px;">
+                    <div class="cert-meta-item">
+                      <div class="cert-meta-label">Credential ID</div>
+                      <div class="cert-meta-val" style="font-size: 0.95rem;">CT2026######</div>
+                    </div>
+
+                    <div class="cert-meta-item">
+                      <div class="cert-meta-label">Issue Date</div>
+                      <div id="previewIssueDate" style="font-weight: 600; color: var(--color-primary-navy); font-size: 0.8rem;">Select Date</div>
+                    </div>
+
+                    <div class="cert-qr-box" style="width: 65px; height: 65px;">
+                      <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=CertiTrustPreview" alt="QR Preview">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="margin-top: 14px; text-align: center; font-size: 0.8rem; color: var(--color-text-muted);">
+                *Preview updates in real-time as you type. Final PDF renders with vector anti-tamper security lines.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/institution.js"></script>
+  <script>
+    // Set default issue date to today
+    document.addEventListener('DOMContentLoaded', () => {
+      const today = new Date().toISOString().split('T')[0];
+      const issueDateInput = document.getElementById('issueDate');
+      if (issueDateInput && !issueDateInput.value) {
+        issueDateInput.value = today;
+        document.getElementById('previewIssueDate').textContent = new Date().toLocaleDateString();
+      }
+    });
+
+    document.getElementById('mobileSidebarToggle')?.addEventListener('click', () => {
+      document.getElementById('dashboardSidebar')?.classList.toggle('sidebar-open');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verification Result – CertiTrust Credential Authentication</title>
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/landing.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo">
+        <div class="brand-icon-shield">
+          <i data-lucide="shield-check" style="width: 22px; height: 22px;"></i>
+        </div>
+        <span>CertiTrust</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/verify" class="nav-link active">Verify Another</a></li>
+        <li><a href="/directory" class="nav-link">Directory</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="/verify" class="btn btn-secondary btn-sm">New Search</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container section-py" style="max-width: 860px;">
+    <!-- Container where verification outcome renders -->
+    <div id="verificationResultContainer">
+      <div style="text-align: center; padding: 60px 0;">
+        <div class="btn-loading" style="display:inline-block; width:36px; height:36px;"></div>
+        <h3 style="margin-top: 16px;">Loading Credential Status...</h3>
+      </div>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/verification.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const certId = urlParams.get('id');
+      if (certId) {
+        performVerification(certId, 'qr_scan');
+      } else {
+        window.location.href = '/verify';
+      }
+    });
+  </script>
+</body>
+</html>

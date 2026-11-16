@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard – CertiTrust Platform</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <!-- Admin Sidebar -->
+    <aside class="dashboard-sidebar" id="adminSidebar">
+      <div class="sidebar-header">
+        <a href="/" class="brand-logo brand-logo-light">
+          <div class="brand-icon-shield">
+            <i data-lucide="shield-alert" style="width: 20px; height: 20px;"></i>
+          </div>
+          <span>CertiTrust</span>
+        </a>
+        <span class="sidebar-badge" style="background: rgba(220, 38, 38, 0.2); color: #FCA5A5;">Platform Admin</span>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-item">
+          <a href="#" class="sidebar-link admin-nav-link active" data-tab="overview">
+            <i data-lucide="layout-dashboard"></i>
+            <span>Overview</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="#" class="sidebar-link admin-nav-link" data-tab="institutions">
+            <i data-lucide="building"></i>
+            <span>Institutions</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="#" class="sidebar-link admin-nav-link" data-tab="verifications">
+            <i data-lucide="list"></i>
+            <span>Verification Logs</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="#" class="sidebar-link admin-nav-link" data-tab="suspicious">
+            <i data-lucide="alert-octagon"></i>
+            <span>Suspicious Activity</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="#" class="sidebar-link admin-nav-link" data-tab="audit">
+            <i data-lucide="file-text"></i>
+            <span>Audit Trail</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="/directory" class="sidebar-link" target="_blank">
+            <i data-lucide="external-link"></i>
+            <span>Public Directory</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="user-profile-widget">
+          <div class="user-avatar" id="adminSidebarAvatar" style="background: #DC2626;">A</div>
+          <div class="user-info">
+            <div class="user-name" id="adminSidebarName">System Administrator</div>
+            <div class="user-role">Superuser Privileges</div>
+          </div>
+          <button id="adminLogoutBtn" class="btn btn-outline btn-sm" style="padding: 6px; color:#fff;" title="Logout">
+            <i data-lucide="log-out" style="width:16px;height:16px;"></i>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Admin Main Content Area -->
+    <div class="dashboard-main">
+      <header class="dashboard-topbar">
+        <div class="topbar-left">
+          <button class="mobile-toggle-btn" id="mobileAdminToggle">
+            <i data-lucide="menu"></i>
+          </button>
+          <h2 class="page-heading-title" id="adminPageTitle">Platform Governance Overview</h2>
+        </div>
+        <div class="topbar-right">
+          <span class="status-pill status-valid">Network Secure</span>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+
+        <!-- TAB 1: OVERVIEW PANE -->
+        <div id="admin-overview-pane" class="admin-section-pane">
+          <!-- Metric Cards Grid -->
+          <section class="metrics-grid">
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Institutions</span>
+                <div class="metric-icon-box" style="background: rgba(49, 94, 251, 0.1); color: var(--color-royal-blue);">
+                  <i data-lucide="building" style="width: 18px; height: 18px;"></i>
+                </div>
+              </div>
+              <div class="metric-val" id="adminMetricTotalInstitutions">0</div>
+              <div class="metric-footer">Registered issuers</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Pending Vetting</span>
+                <div class="metric-icon-box" style="background: var(--color-status-revoked-bg); color: var(--color-status-revoked);">
+                  <i data-lucide="clock" style="width: 18px; height: 18px;"></i>
+                </div>
+              </div>
+              <div class="metric-val" id="adminMetricPendingInstitutions" style="color: var(--color-status-revoked);">0</div>
+              <div class="metric-footer">Requires admin action</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Platform Credentials</span>
+                <div class="metric-icon-box" style="background: var(--color-status-valid-bg); color: var(--color-status-valid);">
+                  <i data-lucide="award" style="width: 18px; height: 18px;"></i>
+                </div>
+              </div>
+              <div class="metric-val" id="adminMetricTotalCertificates">0</div>
+              <div class="metric-footer">Total catalogued</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Suspicious Queries</span>
+                <div class="metric-icon-box" style="background: var(--color-status-invalid-bg); color: var(--color-status-invalid);">
+                  <i data-lucide="alert-triangle" style="width: 18px; height: 18px;"></i>
+                </div>
+              </div>
+              <div class="metric-val" id="adminMetricSuspicious" style="color: var(--color-status-invalid);">0</div>
+              <div class="metric-footer">Failed / Conflict events</div>
+            </div>
+          </section>
+
+          <!-- Pending Institutions Quick Action Card -->
+          <div class="card" style="margin-bottom: 32px;">
+            <div class="card-header">
+              <div>
+                <h3 style="font-size: 1.15rem;">Pending Institutional Applications</h3>
+                <p style="font-size: 0.85rem; margin: 0;">Review accreditation before granting certificate issuance rights.</p>
+              </div>
+            </div>
+            <div class="card-body" id="adminPendingListContainer">
+              <div style="text-align: center; padding: 20px;">Loading applications...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: INSTITUTIONS PANE -->
+        <div id="admin-institutions-pane" class="admin-section-pane hidden">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 style="font-size: 1.25rem;">Educational Institutions Management</h3>
+                <p style="font-size: 0.85rem; margin: 0;">Approve, reject, or suspend issuing organizations.</p>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Institution</th>
+                    <th>Type</th>
+                    <th>Contact Email & Phone</th>
+                    <th>Status</th>
+                    <th>Registered</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="adminInstitutionsTableBody">
+                  <tr>
+                    <td colspan="6" style="text-align: center; padding: 32px;">Loading institutions...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: VERIFICATION LOGS PANE -->
+        <div id="admin-verifications-pane" class="admin-section-pane hidden">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 style="font-size: 1.25rem;">Verification Request Logs</h3>
+                <p style="font-size: 0.85rem; margin: 0;">Live feed of all public authentication attempts with source IP metadata.</p>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Certificate ID</th>
+                    <th>Result Outcome</th>
+                    <th>Source Channel</th>
+                    <th>Request IP Address</th>
+                    <th>Timestamp</th>
+                  </tr>
+                </thead>
+                <tbody id="adminVerificationLogsTableBody">
+                  <tr>
+                    <td colspan="5" style="text-align: center; padding: 32px;">Loading verification logs...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 4: SUSPICIOUS ACTIVITY PANE -->
+        <div id="admin-suspicious-pane" class="admin-section-pane hidden">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+            <!-- Conflicts Card -->
+            <div class="card">
+              <div class="card-header" style="background: var(--color-status-conflict-bg);">
+                <div>
+                  <h3 style="font-size: 1.15rem; color: var(--color-status-conflict);">Duplicate ID Collision Flags</h3>
+                  <p style="font-size: 0.8rem; margin: 0;">Inquiries where multiple database records collided with the same ID.</p>
+                </div>
+              </div>
+              <div class="card-body" id="adminConflictsContainer">
+                <div style="text-align: center; padding: 20px;">Analyzing records...</div>
+              </div>
+            </div>
+
+            <!-- Repeated Failures IP Spikes -->
+            <div class="card">
+              <div class="card-header" style="background: var(--color-status-invalid-bg);">
+                <div>
+                  <h3 style="font-size: 1.15rem; color: var(--color-status-invalid);">High-Frequency Failure Sources</h3>
+                  <p style="font-size: 0.8rem; margin: 0;">IP addresses exhibiting anomalous failed lookup spikes.</p>
+                </div>
+              </div>
+              <div class="card-body" id="adminSuspiciousIpsContainer">
+                <div style="text-align: center; padding: 20px;">Scanning IP ledgers...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 5: AUDIT LOGS PANE -->
+        <div id="admin-audit-pane" class="admin-section-pane hidden">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 style="font-size: 1.25rem;">Platform Security Audit Trail</h3>
+                <p style="font-size: 0.85rem; margin: 0;">Immutable record of all administrative modifications, issuances and revocations.</p>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Action</th>
+                    <th>Actor Email</th>
+                    <th>Target Entity</th>
+                    <th>IP Address</th>
+                    <th>Timestamp</th>
+                  </tr>
+                </thead>
+                <tbody id="adminAuditLogsTableBody">
+                  <tr>
+                    <td colspan="5" style="text-align: center; padding: 32px;">Loading audit trail...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/admin.js"></script>
+  <script>
+    document.getElementById('mobileAdminToggle')?.addEventListener('click', () => {
+      document.getElementById('adminSidebar')?.classList.toggle('sidebar-open');
+    });
+
+    document.getElementById('adminLogoutBtn')?.addEventListener('click', async () => {
+      await API.auth.logout();
+      localStorage.removeItem('certitrust_token');
+      localStorage.removeItem('certitrust_user');
+      window.location.href = '/login';
+    });
+  </script>
+</body>
+</html>

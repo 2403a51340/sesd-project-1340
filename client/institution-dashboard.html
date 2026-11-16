@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Institution Dashboard – CertiTrust Platform</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- Lucide & Chart.js -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body id="institutionDashboardContainer">
+
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="dashboard-sidebar" id="dashboardSidebar">
+      <div class="sidebar-header">
+        <a href="/" class="brand-logo brand-logo-light">
+          <div class="brand-icon-shield">
+            <i data-lucide="shield-check" style="width: 20px; height: 20px;"></i>
+          </div>
+          <span>CertiTrust</span>
+        </a>
+        <span class="sidebar-badge" id="sidebarInstName">Institution Portal</span>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-item">
+          <a href="/institution-dashboard" class="sidebar-link active">
+            <i data-lucide="layout-dashboard"></i>
+            <span>Overview</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="/issue-certificate" class="sidebar-link">
+            <i data-lucide="award"></i>
+            <span>Issue Certificate</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="#certificatesSection" class="sidebar-link">
+            <i data-lucide="file-check"></i>
+            <span>Manage Certificates</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="/directory" class="sidebar-link">
+            <i data-lucide="book-open"></i>
+            <span>Public Directory</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="/verify" class="sidebar-link" target="_blank">
+            <i data-lucide="search"></i>
+            <span>Public Verifier</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="user-profile-widget">
+          <div class="user-avatar" id="sidebarUserAvatar">I</div>
+          <div class="user-info">
+            <div class="user-name" id="sidebarUserName">Registrar Office</div>
+            <div class="user-role" id="sidebarUserRole">Verified Issuer</div>
+          </div>
+          <button id="sidebarLogoutBtn" class="btn btn-outline btn-sm" style="padding: 6px; color:#fff;" title="Sign Out">
+            <i data-lucide="log-out" style="width:16px;height:16px;"></i>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="dashboard-main">
+      <!-- Topbar -->
+      <header class="dashboard-topbar">
+        <div class="topbar-left">
+          <button class="mobile-toggle-btn" id="mobileSidebarToggle">
+            <i data-lucide="menu"></i>
+          </button>
+          <h2 class="page-heading-title">Institutional Overview</h2>
+        </div>
+
+        <div class="topbar-right">
+          <a href="/issue-certificate" class="btn btn-primary btn-sm">
+            <i data-lucide="plus"></i> Issue New Credential
+          </a>
+        </div>
+      </header>
+
+      <!-- Dashboard Content Body -->
+      <main class="dashboard-content">
+
+        <!-- Pending Approval Alert (Only visible if institution is pending) -->
+        <div id="institutionApprovalNotice" class="alert alert-warning hidden" style="margin-bottom: 24px;">
+          <i data-lucide="alert-triangle" style="width: 22px; height: 22px; flex-shrink: 0;"></i>
+          <div>
+            <strong>Institutional Accreditation Review Pending:</strong>
+            Your institution registration has been received and is currently under verification by CertiTrust compliance officers. You may browse records, but certificate issuance will remain locked until your official domain is approved.
+          </div>
+        </div>
+
+        <!-- Metric Cards Grid -->
+        <section class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Total Issued</span>
+              <div class="metric-icon-box" style="background: rgba(49, 94, 251, 0.1); color: var(--color-royal-blue);">
+                <i data-lucide="award" style="width: 18px; height: 18px;"></i>
+              </div>
+            </div>
+            <div class="metric-val" id="metricTotalIssued">0</div>
+            <div class="metric-footer">
+              <span class="trend-badge trend-up"><i data-lucide="trending-up" style="width:12px;height:12px;"></i> Active</span>
+              <span>All-time credentials</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Active & Valid</span>
+              <div class="metric-icon-box" style="background: var(--color-status-valid-bg); color: var(--color-status-valid);">
+                <i data-lucide="check-circle" style="width: 18px; height: 18px;"></i>
+              </div>
+            </div>
+            <div class="metric-val" id="metricActiveCerts">0</div>
+            <div class="metric-footer">
+              <span style="color: var(--color-status-valid); font-weight: 600;">Authenticated</span>
+              <span>In good standing</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Revoked Records</span>
+              <div class="metric-icon-box" style="background: var(--color-status-revoked-bg); color: var(--color-status-revoked);">
+                <i data-lucide="slash" style="width: 18px; height: 18px;"></i>
+              </div>
+            </div>
+            <div class="metric-val" id="metricRevokedCerts">0</div>
+            <div class="metric-footer">
+              <span style="color: var(--color-status-revoked); font-weight: 600;">Invalidated</span>
+              <span>Institutional notices</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Verifications</span>
+              <div class="metric-icon-box" style="background: rgba(53, 200, 232, 0.1); color: var(--color-cyan);">
+                <i data-lucide="eye" style="width: 18px; height: 18px;"></i>
+              </div>
+            </div>
+            <div class="metric-val" id="metricVerifications">0</div>
+            <div class="metric-footer">
+              <span class="trend-badge trend-up"><i data-lucide="activity" style="width:12px;height:12px;"></i> Live</span>
+              <span>Global registry checks</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Charts Grid -->
+        <section class="charts-grid">
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3 style="font-size: 1.15rem;">Monthly Issuance Trends</h3>
+              <span style="font-size: 0.8rem; color: var(--color-text-muted);">Past 6 Months</span>
+            </div>
+            <div class="chart-canvas-wrapper">
+              <canvas id="issuanceChartCanvas"></canvas>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3 style="font-size: 1.15rem;">Credential Status Breakdown</h3>
+              <span style="font-size: 0.8rem; color: var(--color-text-muted);">Current Registry</span>
+            </div>
+            <div class="chart-canvas-wrapper">
+              <canvas id="statusChartCanvas"></canvas>
+            </div>
+          </div>
+        </section>
+
+        <!-- Certificates Management Section -->
+        <section class="card" id="certificatesSection" style="margin-top: 32px;">
+          <div class="card-header" style="flex-wrap: wrap; gap: 16px;">
+            <div>
+              <h3 style="font-size: 1.25rem;">Issued Credentials Registry</h3>
+              <p style="font-size: 0.85rem; margin: 0;">Search, inspect, download, or revoke credentials issued by your institution.</p>
+            </div>
+
+            <!-- Filters -->
+            <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+              <div class="input-wrapper" style="width: 240px;">
+                <i data-lucide="search" class="input-icon"></i>
+                <input type="text" id="searchCertInput" class="form-input input-with-icon" placeholder="Search ID, student, course..." style="padding-top: 8px; padding-bottom: 8px;">
+              </div>
+
+              <select id="statusFilterSelect" class="form-select" style="width: 140px; padding-top: 8px; padding-bottom: 8px;">
+                <option value="">All Statuses</option>
+                <option value="valid">Valid</option>
+                <option value="revoked">Revoked</option>
+                <option value="expired">Expired</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Certificate ID</th>
+                  <th>Student Name</th>
+                  <th>Course / Program</th>
+                  <th>Issue Date</th>
+                  <th>Expiry</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="institutionCertificatesTable">
+                <tr>
+                  <td colspan="7" style="text-align: center; padding: 32px;">Loading credentials registry...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div id="certPaginationContainer" class="pagination"></div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/institution.js"></script>
+  <script>
+    // Sidebar Mobile Toggle
+    document.getElementById('mobileSidebarToggle')?.addEventListener('click', () => {
+      document.getElementById('dashboardSidebar')?.classList.toggle('sidebar-open');
+    });
+
+    // Sidebar Logout
+    document.getElementById('sidebarLogoutBtn')?.addEventListener('click', async () => {
+      await API.auth.logout();
+      localStorage.removeItem('certitrust_token');
+      localStorage.removeItem('certitrust_user');
+      window.location.href = '/login';
+    });
+  </script>
+</body>
+</html>

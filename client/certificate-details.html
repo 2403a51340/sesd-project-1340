@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificate Details – CertiTrust Platform</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/landing.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    @media print {
+      .navbar, .footer, .cert-action-bar, .no-print {
+        display: none !important;
+      }
+      body {
+        background: #FFFFFF !important;
+      }
+      .certificate-preview-card {
+        box-shadow: none !important;
+        border: 2px solid #000 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+    }
+  </style>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body style="background: var(--color-bg-main);">
+
+  <!-- Sticky Navbar -->
+  <nav class="navbar no-print">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo">
+        <div class="brand-icon-shield">
+          <i data-lucide="shield-check" style="width: 22px; height: 22px;"></i>
+        </div>
+        <span>CertiTrust</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/verify" class="nav-link">Verify Certificate</a></li>
+        <li><a href="/directory" class="nav-link">Directory</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="/verify" class="btn btn-secondary btn-sm">Verify an ID</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Detail Content Container -->
+  <main class="container section-py" style="max-width: 900px;">
+
+    <!-- Top Action Bar -->
+    <div class="cert-action-bar flex-between" style="margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
+      <a href="/directory" class="btn btn-secondary btn-sm">
+        <i data-lucide="arrow-left"></i> Back to Directory
+      </a>
+
+      <div style="display: flex; gap: 10px;">
+        <button id="copyUrlBtn" class="btn btn-outline btn-sm">
+          <i data-lucide="share-2"></i> Share Credential
+        </button>
+        <button onclick="window.print()" class="btn btn-secondary btn-sm">
+          <i data-lucide="printer"></i> Print
+        </button>
+        <a id="downloadPdfBtn" href="#" target="_blank" class="btn btn-primary btn-sm">
+          <i data-lucide="download"></i> Download Official PDF
+        </a>
+      </div>
+    </div>
+
+    <!-- Certificate Card Element -->
+    <div id="certificateContainer">
+      <div style="text-align: center; padding: 60px 0;">
+        <div class="btn-loading" style="display:inline-block; width:36px; height:36px;"></div>
+        <h3 style="margin-top: 16px;">Loading Certificate Record...</h3>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer no-print">
+    <div class="container footer-bottom">
+      <div>&copy; 2026 CertiTrust Technologies. Official Credential Detail View.</div>
+      <div><a href="/verify" style="color: var(--color-cyan);">Verify Authenticity &rarr;</a></div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const certId = urlParams.get('id');
+
+      if (!certId) {
+        window.location.href = '/directory';
+        return;
+      }
+
+      const container = document.getElementById('certificateContainer');
+      const downloadBtn = document.getElementById('downloadPdfBtn');
+
+      if (downloadBtn) {
+        downloadBtn.href = `/api/certificates/${encodeURIComponent(certId)}/pdf`;
+      }
+
+      try {
+        const res = await API.verification.getCertificate(certId);
+        if (!res.success || !res.certificate) {
+          container.innerHTML = `
+            <div class="card" style="padding: 48px; text-align: center;">
+              <i data-lucide="alert-circle" style="width: 48px; height: 48px; color: var(--color-status-invalid); margin: 0 auto 16px auto;"></i>
+              <h3>Certificate Record Not Found</h3>
+              <p>The requested identifier "${certId}" could not be retrieved from the active ledger.</p>
+              <div style="margin-top: 20px;">
+                <a href="/verify" class="btn btn-primary">Try Verification</a>
+              </div>
+            </div>
+          `;
+          if (window.lucide) window.lucide.createIcons();
+          return;
+        }
+
+        const cert = res.certificate;
+        let pill = 'status-valid';
+        if (cert.status === 'revoked') pill = 'status-revoked';
+        if (cert.status === 'expired') pill = 'status-expired';
+
+        const issueFormatted = new Date(cert.issueDate).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        });
+
+        const expiryFormatted = cert.expiryDate
+          ? new Date(cert.expiryDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+          : 'Lifetime (No Expiry)';
+
+        const qrSrc = cert.qrCodeDataUri || `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(window.location.origin + '/verify?id=' + cert.certificateId)}`;
+
+        container.innerHTML = `
+          <div class="certificate-preview-card animate-slide-up" style="max-width: 860px;">
+            <div class="certificate-inner-border">
+              <span class="cert-corner-dot cert-corner-tl"></span>
+              <span class="cert-corner-dot cert-corner-tr"></span>
+              <span class="cert-corner-dot cert-corner-bl"></span>
+              <span class="cert-corner-dot cert-corner-br"></span>
+
+              <div class="cert-top-badge">
+                <div class="cert-issuer-info">
+                  <div class="brand-icon-shield" style="width: 32px; height: 32px;">
+                    <i data-lucide="shield" style="width: 18px; height: 18px;"></i>
+                  </div>
+                  <div>
+                    <div style="font-size: 0.95rem; font-weight: 700; color: var(--color-primary-navy);">${cert.institutionName}</div>
+                    <div style="font-size: 0.8rem; color: var(--color-royal-blue); font-weight: 600;">Accredited Issuing Authority &bull; ${cert.institutionType || 'Certified'}</div>
+                  </div>
+                </div>
+                <span class="status-pill ${pill}">${cert.status}</span>
+              </div>
+
+              <div class="cert-heading-title" style="font-size: 1.85rem;">${cert.certificateTitle ? cert.certificateTitle.toUpperCase() : 'CERTIFICATE OF EXCELLENCE'}</div>
+              <div class="cert-recipient-intro">This certifies that the recipient</div>
+              <div class="cert-recipient-name" style="font-size: 2.2rem;">${cert.studentName}</div>
+              <div style="text-align: center; font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 16px;">
+                Student ID: <strong>${cert.studentId}</strong>
+              </div>
+
+              <div class="cert-course-desc" style="font-size: 1.05rem;">
+                has successfully fulfilled all required curriculum, projects and examinations for
+                <span class="cert-course-name" style="font-size: 1.3rem;">${cert.courseName}</span>
+                ${cert.grade ? `<div style="font-size: 0.9rem; color: var(--color-status-valid); font-weight: 700; margin-top: 6px;">Conferred with: ${cert.grade}</div>` : ''}
+              </div>
+
+              <!-- Revocation Banner if applicable -->
+              ${cert.status === 'revoked' ? `
+                <div class="alert alert-warning" style="margin: 20px 0;">
+                  <strong>Revocation Notice:</strong> ${cert.revocationReason || 'This credential has been invalidated by the issuing institution.'}
+                </div>
+              ` : ''}
+
+              <div class="cert-footer-meta" style="align-items: center;">
+                <div class="cert-meta-item">
+                  <div class="cert-meta-label">Credential ID</div>
+                  <div class="cert-meta-val" style="font-size: 1.15rem;">${cert.certificateId}</div>
+                  <div style="font-size: 0.8rem; color: var(--color-text-muted); margin-top: 2px;">Issue Date: ${issueFormatted}</div>
+                  <div style="font-size: 0.8rem; color: var(--color-text-muted);">Validity: ${expiryFormatted}</div>
+                </div>
+
+                <div style="text-align: center;">
+                  <div style="border-top: 1px solid var(--color-border-hover); width: 140px; margin: 0 auto 6px auto;"></div>
+                  <div style="font-size: 0.75rem; font-weight: 700; color: var(--color-primary-navy);">Registrar Signatory</div>
+                  <div style="font-size: 0.7rem; color: var(--color-text-muted);">Authorized Verification Seal</div>
+                </div>
+
+                <div class="cert-qr-box" style="width: 85px; height: 85px;">
+                  <img src="${qrSrc}" alt="Verification QR Code">
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        if (window.lucide) window.lucide.createIcons();
+      } catch (err) {
+        container.innerHTML = `<div class="alert alert-danger">Error: ${err.message}</div>`;
+      }
+
+      // Copy share URL
+      document.getElementById('copyUrlBtn')?.addEventListener('click', () => {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          showToast('Certificate URL copied to clipboard!', 'success');
+        });
+      });
+    });
+  </script>
+</body>
+</html>

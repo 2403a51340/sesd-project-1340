@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Institution Registration – CertiTrust Platform</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/landing.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body style="background: var(--color-bg-main); min-height: 100vh; display: flex; flex-direction: column;">
+
+  <!-- Header -->
+  <header style="padding: 24px 0; border-bottom: 1px solid var(--color-border); background: #FFFFFF;">
+    <div class="container flex-between">
+      <a href="/" class="brand-logo">
+        <div class="brand-icon-shield">
+          <i data-lucide="shield-check" style="width: 22px; height: 22px;"></i>
+        </div>
+        <span>CertiTrust</span>
+      </a>
+      <div style="font-size: 0.9rem; color: var(--color-text-secondary);">
+        Already registered? <a href="/login" style="font-weight: 600;">Sign in</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Register Form Card -->
+  <main style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 48px 24px;">
+    <div class="card animate-slide-up" style="max-width: 680px; width: 100%; padding: 44px; box-shadow: var(--shadow-xl); border-radius: var(--radius-lg); background: #FFFFFF;">
+
+      <div style="text-align: center; margin-bottom: 32px;">
+        <span class="section-tag">Institutional Onboarding</span>
+        <h2 style="font-size: 2rem; margin-bottom: 8px;">Register Your Institution</h2>
+        <p style="font-size: 0.95rem; max-width: 500px; margin: 0 auto;">
+          Connect your educational organization to the CertiTrust verified credential ecosystem.
+        </p>
+      </div>
+
+      <!-- Account Role Selection Radio Group -->
+      <div style="display: flex; gap: 12px; margin-bottom: 28px; background: var(--color-bg-subtle); padding: 6px; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+        <label style="flex: 1; text-align: center; cursor: pointer; padding: 10px; border-radius: 6px; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease;">
+          <input type="radio" name="accountRole" value="institution" checked style="accent-color: var(--color-royal-blue);">
+          <span>Educational Institution</span>
+        </label>
+        <label style="flex: 1; text-align: center; cursor: pointer; padding: 10px; border-radius: 6px; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease;">
+          <input type="radio" name="accountRole" value="student" style="accent-color: var(--color-royal-blue);">
+          <span>Individual Student</span>
+        </label>
+      </div>
+
+      <!-- Compliance Notice -->
+      <div class="alert alert-info" style="margin-bottom: 28px;">
+        <i data-lucide="info" style="width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px;"></i>
+        <div>
+          <strong>Vetting Requirement:</strong> New institutions are created with a <code>pending</code> status. Our compliance team verifies official domain accreditations before enabling credential issuance.
+        </div>
+      </div>
+
+      <form id="registerForm">
+        <!-- User Personal Details -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group">
+            <label class="form-label" for="regFullName">Registrar / Administrator Name <span class="required">*</span></label>
+            <input type="text" id="regFullName" class="form-input" placeholder="e.g. Dr. Arthur Pendelton" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="regEmail">Official Work Email <span class="required">*</span></label>
+            <input type="email" id="regEmail" class="form-input" placeholder="registrar@university.edu" required autocomplete="email">
+          </div>
+        </div>
+
+        <!-- Institution Specific Fields -->
+        <div id="institutionSpecificFields">
+          <div style="display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="institutionName">Official Institution Name <span class="required">*</span></label>
+              <input type="text" id="institutionName" class="form-input" placeholder="e.g. Apex Institute of Technology & AI" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="institutionType">Institution Category <span class="required">*</span></label>
+              <select id="institutionType" class="form-select">
+                <option value="University">University</option>
+                <option value="College">College</option>
+                <option value="Certification Body">Certification Body</option>
+                <option value="Online Academy">Online Academy</option>
+                <option value="Vocational Institute">Vocational Institute</option>
+                <option value="High School">High School</option>
+                <option value="Corporate Training">Corporate Training</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="institutionPhone">Official Phone Number <span class="required">*</span></label>
+              <input type="tel" id="institutionPhone" class="form-input" placeholder="+1 (555) 234-8900" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="institutionWebsite">Official Website</label>
+              <input type="url" id="institutionWebsite" class="form-input" placeholder="https://apex-tech.edu">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="institutionAddress">Physical Campus / Headquarters Address <span class="required">*</span></label>
+            <input type="text" id="institutionAddress" class="form-input" placeholder="742 Innovation Parkway, Cambridge, MA" required>
+          </div>
+        </div>
+
+        <!-- Passwords -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group">
+            <label class="form-label" for="regPassword">Account Password <span class="required">*</span></label>
+            <input type="password" id="regPassword" class="form-input" placeholder="Min. 6 characters" required autocomplete="new-password">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="regConfirmPassword">Confirm Password <span class="required">*</span></label>
+            <input type="password" id="regConfirmPassword" class="form-input" placeholder="Re-type password" required autocomplete="new-password">
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-top: 16px;">
+          <i data-lucide="building-2"></i> Submit Institution Application
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

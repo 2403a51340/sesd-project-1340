@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Public Credential Directory – CertiTrust Platform</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/landing.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo">
+        <div class="brand-icon-shield">
+          <i data-lucide="shield-check" style="width: 22px; height: 22px;"></i>
+        </div>
+        <span>CertiTrust</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/verify" class="nav-link">Verify Certificate</a></li>
+        <li><a href="/directory" class="nav-link active">Directory</a></li>
+        <li><a href="/login" class="nav-link">Institution Portal</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="/login" class="btn btn-secondary btn-sm">Login</a>
+        <a href="/register" class="btn btn-primary btn-sm">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Directory Header -->
+  <header class="section-py" style="background: radial-gradient(100% 80% at 50% 0%, rgba(49, 94, 251, 0.08) 0%, rgba(246, 248, 252, 0) 100%), var(--color-bg-main); padding-bottom: var(--space-8);">
+    <div class="container">
+      <div class="section-header" style="margin-bottom: var(--space-6);">
+        <span class="section-tag">Public Ledger</span>
+        <h1 class="section-title">Verified Credential Directory</h1>
+        <p class="section-desc">
+          Browse cryptographically registered credentials issued across the accredited CertiTrust network. Recipient personal identifiers are privacy-masked.
+        </p>
+      </div>
+
+      <!-- Search & Filter Controls -->
+      <div class="card" style="padding: 24px; box-shadow: var(--shadow-md);">
+        <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr auto; gap: 16px; align-items: center;">
+          <div class="input-wrapper">
+            <i data-lucide="search" class="input-icon"></i>
+            <input type="text" id="dirSearchInput" class="form-input input-with-icon" placeholder="Search by ID, course, or recipient...">
+          </div>
+
+          <div class="input-wrapper">
+            <i data-lucide="building" class="input-icon"></i>
+            <input type="text" id="dirInstInput" class="form-input input-with-icon" placeholder="Filter by Institution...">
+          </div>
+
+          <select id="dirStatusSelect" class="form-select">
+            <option value="">All Statuses</option>
+            <option value="valid">Valid / Active</option>
+            <option value="revoked">Revoked</option>
+            <option value="expired">Expired</option>
+          </select>
+
+          <button id="resetFilterBtn" class="btn btn-outline" title="Reset Filters">
+            <i data-lucide="rotate-ccw"></i> Reset
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Directory Table Main Section -->
+  <main class="container" style="margin-bottom: 80px;">
+    <div class="card" style="border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm);">
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Certificate ID</th>
+              <th>Recipient</th>
+              <th>Course / Program</th>
+              <th>Issuing Institution</th>
+              <th>Issue Date</th>
+              <th>Status</th>
+              <th>Verification</th>
+            </tr>
+          </thead>
+          <tbody id="directoryTableBody">
+            <tr>
+              <td colspan="7" style="text-align: center; padding: 40px;">
+                <div class="btn-loading" style="display:inline-block; width:24px; height:24px;"></div>
+                <div style="margin-top: 12px; color: var(--color-text-secondary);">Querying credential ledger...</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div id="directoryPagination" class="pagination"></div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-bottom">
+      <div>&copy; 2026 CertiTrust Technologies. Public Verified Directory.</div>
+      <div><a href="/verify" style="color: var(--color-cyan);">Verify a Specific ID &rarr;</a></div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    let currentDirPage = 1;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadDirectory();
+
+      const searchInput = document.getElementById('dirSearchInput');
+      const instInput = document.getElementById('dirInstInput');
+      const statusSelect = document.getElementById('dirStatusSelect');
+      const resetBtn = document.getElementById('resetFilterBtn');
+
+      let timer;
+      const debounceFilter = () => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          currentDirPage = 1;
+          loadDirectory();
+        }, 350);
+      };
+
+      searchInput?.addEventListener('input', debounceFilter);
+      instInput?.addEventListener('input', debounceFilter);
+      statusSelect?.addEventListener('change', () => {
+        currentDirPage = 1;
+        loadDirectory();
+      });
+
+      resetBtn?.addEventListener('click', () => {
+        if (searchInput) searchInput.value = '';
+        if (instInput) instInput.value = '';
+        if (statusSelect) statusSelect.value = '';
+        currentDirPage = 1;
+        loadDirectory();
+      });
+    });
+
+    async function loadDirectory() {
+      const tbody = document.getElementById('directoryTableBody');
+      const paginationContainer = document.getElementById('directoryPagination');
+      if (!tbody) return;
+
+      const search = document.getElementById('dirSearchInput')?.value || '';
+      const institution = document.getElementById('dirInstInput')?.value || '';
+      const status = document.getElementById('dirStatusSelect')?.value || '';
+
+      try {
+        const res = await API.verification.getDirectory({
+          search,
+          institution,
+          status,
+          page: currentDirPage,
+          limit: 10,
+        });
+
+        if (!res.success || !res.certificates || res.certificates.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 48px; color: var(--color-text-muted);">No certificate records matched your query filters.</td></tr>`;
+          if (paginationContainer) paginationContainer.innerHTML = '';
+          return;
+        }
+
+        tbody.innerHTML = res.certificates.map(cert => {
+          let pill = 'status-valid';
+          if (cert.status === 'revoked') pill = 'status-revoked';
+          if (cert.status === 'expired') pill = 'status-expired';
+
+          return `
+            <tr>
+              <td>
+                <a href="/certificate-details?id=${encodeURIComponent(cert.certificateId)}" style="font-family: var(--font-mono); font-weight: 700; color: var(--color-royal-blue);">
+                  ${cert.certificateId}
+                </a>
+              </td>
+              <td><strong>${cert.studentNameMasked}</strong></td>
+              <td>${cert.courseName}</td>
+              <td>${cert.institutionName}</td>
+              <td>${new Date(cert.issueDate).toLocaleDateString()}</td>
+              <td><span class="status-pill ${pill}">${cert.status}</span></td>
+              <td>
+                <a href="/verify?id=${encodeURIComponent(cert.certificateId)}" class="btn btn-secondary btn-sm" title="Authenticate this certificate">
+                  <i data-lucide="shield-check" style="width:14px;height:14px;"></i> Verify
+                </a>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+        if (window.lucide) window.lucide.createIcons();
+        renderDirPagination(res.currentPage, res.totalPages);
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--color-status-invalid); padding: 32px;">Failed to load registry records.</td></tr>`;
+      }
+    }
+
+    function renderDirPagination(current, total) {
+      const container = document.getElementById('directoryPagination');
+      if (!container || total <= 1) {
+        if (container) container.innerHTML = '';
+        return;
+      }
+
+      let html = `<div style="display:flex; justify-content:space-between; align-items:center; width:100%;">`;
+      html += `<span style="font-size:0.85rem; color:var(--color-text-muted);">Showing Page ${current} of ${total}</span>`;
+      html += `<div style="display:flex; gap:6px;">`;
+
+      if (current > 1) {
+        html += `<button class="btn btn-secondary btn-sm" id="dirPrevBtn">&laquo; Prev</button>`;
+      }
+
+      for (let i = 1; i <= total; i++) {
+        html += `<button class="btn ${i === current ? 'btn-primary' : 'btn-secondary'} btn-sm" data-page="${i}">${i}</button>`;
+      }
+
+      if (current < total) {
+        html += `<button class="btn btn-secondary btn-sm" id="dirNextBtn">Next &raquo;</button>`;
+      }
+
+      html += `</div></div>`;
+      container.innerHTML = html;
+
+      document.getElementById('dirPrevBtn')?.addEventListener('click', () => { currentDirPage--; loadDirectory(); });
+      document.getElementById('dirNextBtn')?.addEventListener('click', () => { currentDirPage++; loadDirectory(); });
+      container.querySelectorAll('button[data-page]').forEach(b => {
+        b.addEventListener('click', () => {
+          currentDirPage = parseInt(b.getAttribute('data-page'), 10);
+          loadDirectory();
+        });
+      });
+    }
+  </script>
+</body>
+</html>

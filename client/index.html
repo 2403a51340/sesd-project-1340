@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CertiTrust – Digital Certificate Verification & Authentication Platform</title>
+  <meta name="description" content="Secure digital certificate verification for institutions, students and employers. Issue, manage and authenticate credentials through one trusted platform.">
+
+  <!-- Typography: Manrope (Headings) & Inter (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Design System CSS -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/landing.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <nav class="navbar" id="mainNavbar">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo">
+        <div class="brand-icon-shield">
+          <i data-lucide="shield-check" style="width: 22px; height: 22px;"></i>
+        </div>
+        <span>CertiTrust</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link active">Home</a></li>
+        <li><a href="/verify" class="nav-link">Verify Certificate</a></li>
+        <li><a href="/directory" class="nav-link">Directory</a></li>
+        <li><a href="#howItWorks" class="nav-link">How It Works</a></li>
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#security" class="nav-link">Security</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="/login" class="btn btn-secondary btn-sm">Login</a>
+        <a href="/register" class="btn btn-primary btn-sm">Get Started</a>
+      </div>
+
+      <button class="mobile-menu-btn" aria-label="Toggle navigation menu">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- 1. Hero Section -->
+  <header class="hero-section">
+    <div class="container hero-grid">
+      <!-- Left Content -->
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i data-lucide="award" style="width: 16px; height: 16px;"></i>
+          <span>Enterprise Credential Authentication</span>
+        </div>
+
+        <h1 class="hero-title">
+          Verify Every Achievement. <br>
+          <span class="gradient-text">Trust Every Credential.</span>
+        </h1>
+
+        <p class="hero-desc">
+          Secure digital certificate verification for institutions, students and employers. Issue, manage and authenticate credentials through one trusted platform.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="/verify" class="btn btn-primary btn-lg">
+            <i data-lucide="search"></i> Verify Certificate
+          </a>
+          <a href="#howItWorks" class="btn btn-secondary btn-lg">
+            <i data-lucide="compass"></i> Explore Platform
+          </a>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="hero-trust-badges">
+          <div class="trust-item">
+            <i data-lucide="check-circle-2"></i>
+            <span>Cryptographic Registry</span>
+          </div>
+          <div class="trust-item">
+            <i data-lucide="check-circle-2"></i>
+            <span>Instant QR Verification</span>
+          </div>
+          <div class="trust-item">
+            <i data-lucide="check-circle-2"></i>
+            <span>Tamper-Resistant</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Visual: Authentic Digital Certificate Showcase -->
+      <div class="hero-visual-wrap">
+        <!-- Floating Verified Chip Top -->
+        <div class="floating-badge floating-badge-top">
+          <div class="floating-badge-icon badge-green">
+            <i data-lucide="shield-check" style="width: 20px; height: 20px;"></i>
+          </div>
+          <div>
+            <div style="font-weight: 700; font-size: 0.85rem; color: var(--color-primary-navy);">Status: VALID</div>
+            <div style="font-size: 0.75rem; color: var(--color-text-secondary);">Real-Time Authenticated</div>
+          </div>
+        </div>
+
+        <!-- Certificate Card Component Preview -->
+        <div class="hero-certificate-container">
+          <div class="certificate-preview-card">
+            <div class="certificate-inner-border">
+              <span class="cert-corner-dot cert-corner-tl"></span>
+              <span class="cert-corner-dot cert-corner-tr"></span>
+              <span class="cert-corner-dot cert-corner-bl"></span>
+              <span class="cert-corner-dot cert-corner-br"></span>
+
+              <div class="cert-top-badge">
+                <div class="cert-issuer-info">
+                  <div class="brand-icon-shield" style="width: 28px; height: 28px;">
+                    <i data-lucide="shield" style="width: 16px; height: 16px;"></i>
+                  </div>
+                  <div>
+                    <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-primary-navy);">Apex Institute of Technology & AI</div>
+                    <div style="font-size: 0.7rem; color: var(--color-royal-blue); font-weight: 600;">Accredited Issuing Authority</div>
+                  </div>
+                </div>
+                <span class="status-pill status-valid">AUTHENTIC</span>
+              </div>
+
+              <div class="cert-heading-title">CERTIFICATE OF EXCELLENCE</div>
+              <div class="cert-recipient-intro">This is to officially certify that</div>
+              <div class="cert-recipient-name">Alexander Wright</div>
+
+              <div class="cert-course-desc">
+                has successfully fulfilled all rigorous evaluation standards for
+                <span class="cert-course-name">Advanced Full-Stack Systems & Distributed Cloud Architecture</span>
+              </div>
+
+              <div class="cert-footer-meta">
+                <div class="cert-meta-item">
+                  <div class="cert-meta-label">Credential ID</div>
+                  <div class="cert-meta-val">CT2026000001</div>
+                </div>
+
+                <div class="cert-meta-item">
+                  <div class="cert-meta-label">Issue Date</div>
+                  <div style="font-weight: 600; color: var(--color-primary-navy); font-size: 0.85rem;">January 15, 2026</div>
+                </div>
+
+                <div class="cert-qr-box">
+                  <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://localhost:5000/verify?id=CT2026000001" alt="Verification QR Code">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating Verified Chip Bottom -->
+        <div class="floating-badge floating-badge-bottom">
+          <div class="floating-badge-icon badge-blue">
+            <i data-lucide="qr-code" style="width: 20px; height: 20px;"></i>
+          </div>
+          <div>
+            <div style="font-weight: 700; font-size: 0.85rem; color: var(--color-primary-navy);">Scannable Credential</div>
+            <div style="font-size: 0.75rem; color: var(--color-text-secondary);">Direct Registry Resolution</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. Statistics Counter Section -->
+  <section class="stats-section">
+    <div class="container stats-grid">
+      <div class="stat-card">
+        <div class="stat-number" data-count="145000" data-suffix="+">145,000+</div>
+        <div class="stat-label">Credentials Catalogued</div>
+        <div class="stat-subtext">*Demo Platform Aggregate Metric</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" data-count="380" data-suffix="+">380+</div>
+        <div class="stat-label">Verified Institutions</div>
+        <div class="stat-subtext">*Accredited & Onboarded Partners</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" data-count="99" data-suffix=".98%">99.98%</div>
+        <div class="stat-label">Fraud Detection Accuracy</div>
+        <div class="stat-subtext">*Multi-point Status Engine</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" data-count="120" data-suffix="ms">< 120ms</div>
+        <div class="stat-label">Average Verification Speed</div>
+        <div class="stat-subtext">*High-Throughput REST Response</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Interactive Verification Showcase Bar -->
+  <section class="container" style="margin-top: -30px; margin-bottom: 30px;">
+    <div class="live-verify-bar">
+      <div style="text-align: center; max-width: 650px; margin: 0 auto;">
+        <span class="section-tag section-tag-dark">Instant Verification</span>
+        <h3 style="color: #FFFFFF; margin-bottom: 8px;">Try Verifying a Credential Right Now</h3>
+        <p style="color: var(--color-text-on-dark); font-size: 0.95rem;">
+          Enter any demo certificate ID (e.g. <code>CT2026000001</code> for Valid, <code>CT2026000003</code> for Revoked, or <code>CT2026000004</code> for Expired):
+        </p>
+
+        <form class="verify-form live-verify-input-group">
+          <input type="text" class="verify-input live-verify-input" placeholder="Enter Certificate ID (e.g. CT2026000001)" required>
+          <button type="submit" class="btn btn-primary" style="padding: 16px 28px;">
+            <i data-lucide="search"></i> Verify
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. How CertiTrust Works Section -->
+  <section class="section-py" id="howItWorks">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">End-To-End Architecture</span>
+        <h2 class="section-title">How CertiTrust Powers Credential Trust</h2>
+        <p class="section-desc">
+          A seamless three-stage ecosystem connecting issuers, recipients, and verification authorities in seconds.
+        </p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <h3 class="step-title">Authorized Issuance</h3>
+          <p>
+            Vetted institutions generate uniquely indexed credentials with tamper-resistant metadata, cryptographic identifiers, and scannable QR tags.
+          </p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <h3 class="step-title">Permanent Cataloguing</h3>
+          <p>
+            Every record is stored with strict non-repudiation safeguards in our resilient MongoDB cluster, logging dates, courses, grades, and validity terms.
+          </p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <h3 class="step-title">Frictionless Authentication</h3>
+          <p>
+            Employers and academic bodies scan the QR code or enter the Certificate ID to receive authoritative, instantaneous verification statuses.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Core Platform Features -->
+  <section class="section-py" id="features" style="background: #FFFFFF; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Enterprise Capabilities</span>
+        <h2 class="section-title">Built for Reliability, Speed & Compliance</h2>
+        <p class="section-desc">
+          Engineered from the ground up with modern security protocols and intuitive SaaS management tools.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">
+            <i data-lucide="shield-check"></i>
+          </div>
+          <h4>Cryptographic Uniqueness</h4>
+          <p>Eliminates fraudulent duplicate credentials through deterministic ID generation and collision-detection algorithms.</p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">
+            <i data-lucide="qr-code"></i>
+          </div>
+          <h4>Dynamic QR Verification</h4>
+          <p>Scannable QR codes resolve directly to live backend queries, preventing offline tampering or static screenshot forgery.</p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">
+            <i data-lucide="file-text"></i>
+          </div>
+          <h4>High-Fidelity PDF Engine</h4>
+          <p>Generate print-ready, high-resolution vector PDF certificates with institutional crests, signatures, and anti-forgery footers.</p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">
+            <i data-lucide="clock"></i>
+          </div>
+          <h4>Lifecycle & Expiry Rules</h4>
+          <p>Automatic state transitions for time-bound professional certifications, flagging expired credentials instantaneously.</p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">
+            <i data-lucide="activity"></i>
+          </div>
+          <h4>Real-Time Audit Trail</h4>
+          <p>Comprehensive security logging capturing IP addresses, timestamps, and user agents for every verification attempt.</p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">
+            <i data-lucide="sliders"></i>
+          </div>
+          <h4>Granular Admin Controls</h4>
+          <p>Multi-tier role management with mandatory institutional identity vetting before issuance permissions are granted.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5, 6, 7. Stakeholder Benefits Tabs -->
+  <section class="section-py">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Value Proposition</span>
+        <h2 class="section-title">Empowering Every Credential Stakeholder</h2>
+        <p class="section-desc">Explore how CertiTrust transforms certificate governance for your specific role.</p>
+      </div>
+
+      <div class="stakeholder-tabs-nav">
+        <button class="stakeholder-tab-btn active" data-pane="institutions">For Institutions</button>
+        <button class="stakeholder-tab-btn" data-pane="students">For Students</button>
+        <button class="stakeholder-tab-btn" data-pane="employers">For Employers & Verifiers</button>
+      </div>
+
+      <!-- Pane 1: Institutions -->
+      <div class="stakeholder-pane active" id="pane-institutions">
+        <div>
+          <span class="section-tag">Issuing Bodies</span>
+          <h3>Protect Institutional Reputation and Eliminate Forgery</h3>
+          <p>
+            Educational institutes, universities, and certification academies spend substantial resources manually responding to verification requests. CertiTrust automates the entire pipeline.
+          </p>
+          <ul class="stakeholder-points">
+            <li class="stakeholder-point-item">
+              <i data-lucide="check" class="point-check-icon"></i>
+              <span>One-click digital certificate issuance with automated unique ID assignment.</span>
+            </li>
+            <li class="stakeholder-point-item">
+              <i data-lucide="check" class="point-check-icon"></i>
+              <span>Instant credential revocation capability if accreditation or honor code violations occur.</span>
+            </li>
+            <li class="stakeholder-point-item">
+              <i data-lucide="check" class="point-check-icon"></i>
+              <span>Analytics dashboard tracking verification frequency and global inquiries.</span>
+            </li>
+          </ul>
+          <div class="mt-4">
+            <a href="/register" class="btn btn-primary">Register Institution</a>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="padding: 24px; border: 1px solid var(--color-border); background: #FFFFFF;">
+            <div style="font-weight: 700; color: var(--color-primary-navy); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+              <i data-lucide="bar-chart-2" style="color: var(--color-royal-blue);"></i> Institution Issuance Portal
+            </div>
+            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&auto=format&fit=crop&q=60" alt="Students in University" style="border-radius: var(--radius-sm); max-height: 260px; width: 100%; object-fit: cover;">
+          </div>
+        </div>
+      </div>
+
+      <!-- Pane 2: Students -->
+      <div class="stakeholder-pane" id="pane-students">
+        <div>
+          <span class="section-tag">Credential Holders</span>
+          <h3>Showcase Verifiable Achievements Anywhere in the World</h3>
+          <p>
+            Students receive permanent, verifiable digital credentials that can be shared on LinkedIn, CVs, or directly with prospective employers without risk of loss.
+          </p>
+          <ul class="stakeholder-points">
+            <li class="stakeholder-point-item">
+              <i data-lucide="check" class="point-check-icon"></i>
+              <span>Permanent lifetime access to high-resolution vector PDF certificates.</span>
+            </li>
+            <li class="stakeholder-point-item">
+              <i data-lucide="check" class="point-check-icon"></i>
+              <span>Shareable verification URLs and QR codes for one-tap recruiter authentication.</span>
+            </li>
+            <li class="stakeholder-point-item">
+              <i data-lucide="check" class="point-check-icon"></i>
+              <span>Privacy masking controls shielding sensitive personal contact details from public exposure.</span>
+            </li>
+          </ul>
+          <div class="mt-4">
+            <a href="/directory" class="btn btn-secondary">Browse Public Registry</a>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="padding: 24px; border: 1px solid var(--color-border); background: #FFFFFF;">
+            <div style="font-weight: 700; color: var(--color-primary-navy); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+              <i data-lucide="award" style="color: var(--color-royal-blue);"></i> Digital Portfolio Credential
+            </div>
+            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&auto=format&fit=crop&q=60" alt="Graduation diploma" style="border-radius: var(--radius-sm); max-height: 260px; width: 100%; object-fit: cover;">
+          </div>
+        </div>
+      </div>
+
+      <!-- Pane 3: Employers -->
+      <div class="stakeholder-pane" id="pane-employers">
+        <div>
+          <span class="section-tag">Talent Acquisition</span>
+          <h3>Zero-Doubt Background Checks in Under One Second</h3>
+          <p>
+            Hiring managers and HR teams can instantly confirm that candidate qualifications are authentic, current, and issued by recognized bodies.
+          </p>
+          <ul class="stakeholder-points">
+            <li class="stakeholder-point-item">
+              <i data-lucide="check" class="point-check-icon"></i>
+              <span>Direct confirmation of graduation year, honors distinctions, and course scope.</span>
+            </li>
+            <li class="stakeholder-point-item">
+              <i data-lucide="check" class="point-check-icon"></i>
+              <span>Immediate alerts if a certificate has been revoked or expired.</span>
+            </li>
+            <li class="stakeholder-point-item">
+              <i data-lucide="check" class="point-check-icon"></i>
+              <span>No signup or software installation required for rapid public verification.</span>
+            </li>
+          </ul>
+          <div class="mt-4">
+            <a href="/verify" class="btn btn-primary">Start Candidate Check</a>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="padding: 24px; border: 1px solid var(--color-border); background: #FFFFFF;">
+            <div style="font-weight: 700; color: var(--color-primary-navy); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+              <i data-lucide="briefcase" style="color: var(--color-royal-blue);"></i> Talent Verification
+            </div>
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop&q=60" alt="Corporate office tower" style="border-radius: var(--radius-sm); max-height: 260px; width: 100%; object-fit: cover;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Security and Authenticity Section (Dark Theme) -->
+  <section class="security-dark-section" id="security">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag section-tag-dark">Defense-In-Depth</span>
+        <h2 class="section-title" style="color: #FFFFFF;">Cryptographic Trust & Architecture</h2>
+        <p class="section-desc" style="color: var(--color-text-on-dark);">
+          Built strictly adhering to modern cybersecurity standards, data privacy mandates, and enterprise availability requirements.
+        </p>
+      </div>
+
+      <div class="security-grid">
+        <div class="security-card">
+          <div class="brand-icon-shield" style="margin-bottom: 16px;">
+            <i data-lucide="lock"></i>
+          </div>
+          <h4>bcrypt Password Hashing</h4>
+          <p>All institutional and admin credentials utilize high-iteration salted bcrypt hashes, preventing brute-force and dictionary exploits.</p>
+        </div>
+
+        <div class="security-card">
+          <div class="brand-icon-shield" style="margin-bottom: 16px;">
+            <i data-lucide="shield-alert"></i>
+          </div>
+          <h4>Intelligent Rate Limiting</h4>
+          <p>Automated rate limiting across auth and verification endpoints blocks malicious scraping bots, credential stuffing, and DDoS spikes.</p>
+        </div>
+
+        <div class="security-card">
+          <div class="brand-icon-shield" style="margin-bottom: 16px;">
+            <i data-lucide="cookie"></i>
+          </div>
+          <h4>Secure HTTP-Only Cookies</h4>
+          <p>Session tokens utilize HTTP-only, SameSite=Lax flags, completely shielding authentication state from client-side XSS tampering.</p>
+        </div>
+
+        <div class="security-card">
+          <div class="brand-icon-shield" style="margin-bottom: 16px;">
+            <i data-lucide="eye-off"></i>
+          </div>
+          <h4>PII Privacy Masking</h4>
+          <p>Student personal email and contact identifiers are strictly masked on public verification lookups to ensure compliance with privacy laws.</p>
+        </div>
+
+        <div class="security-card">
+          <div class="brand-icon-shield" style="margin-bottom: 16px;">
+            <i data-lucide="server"></i>
+          </div>
+          <h4>Helmet Security Headers</h4>
+          <p>Strict Content Security Policy (CSP), X-Frame-Options, and HSTS headers enforced across all incoming HTTP traffic.</p>
+        </div>
+
+        <div class="security-card">
+          <div class="brand-icon-shield" style="margin-bottom: 16px;">
+            <i data-lucide="fingerprint"></i>
+          </div>
+          <h4>Conflict & Anomaly Auditing</h4>
+          <p>Every anomalous query or duplicate ID attempt automatically writes to an immutable administrative security ledger for human audit.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. Frequently Asked Questions -->
+  <section class="section-py" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Got Questions?</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-desc">Clear answers about digital certificate verification, issuance, and validity.</p>
+      </div>
+
+      <div class="faq-container">
+        <div class="faq-item active">
+          <button class="faq-question">
+            <span>How does CertiTrust verify that a certificate is genuine?</span>
+            <i data-lucide="chevron-down" class="faq-toggle-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              When a certificate ID is entered or QR code is scanned, CertiTrust queries its centralized MongoDB registry in real-time. It verifies the issuing institution's vetted approval status, checks the issuance date, cross-references active revocation lists, and ensures the record has not expired.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Can anyone register an institution and issue certificates?</span>
+            <i data-lucide="chevron-down" class="faq-toggle-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              No. When an institution registers, its account enters a mandatory <code>pending</code> status. Only after platform administrators thoroughly review and approve the institution's official credentials can it issue verified certificates.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>What happens if a certificate has been revoked?</span>
+            <i data-lucide="chevron-down" class="faq-toggle-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              If an institution or administrator revokes a credential, the verification status immediately updates to <code>REVOKED</code> with the official timestamp and reason for revocation, ensuring verifiers are never misled.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Is student personal information exposed publicly?</span>
+            <i data-lucide="chevron-down" class="faq-toggle-icon"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              CertiTrust enforces strict data privacy. Public verification displays only the recipient's name and academic title. Private contact details (such as personal email addresses and telephone numbers) are strictly excluded from public responses.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. Final CTA Banner -->
+  <section class="container" style="margin-bottom: 90px;">
+    <div class="cta-banner">
+      <h2>Transform How Your Organization Authenticates Credentials</h2>
+      <p>
+        Join hundreds of innovative universities, certification bodies, and enterprises ensuring unshakeable trust in digital achievements.
+      </p>
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <a href="/register" class="btn btn-primary btn-lg">Register Your Institution</a>
+        <a href="/verify" class="btn btn-secondary btn-lg">Verify a Certificate</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. Professional Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="/" class="brand-logo brand-logo-light">
+          <div class="brand-icon-shield">
+            <i data-lucide="shield-check" style="width: 22px; height: 22px;"></i>
+          </div>
+          <span>CertiTrust</span>
+        </a>
+        <p class="footer-brand-desc">
+          "Digital Credentials. Verified Trust." The next-generation digital certificate issuance and authentication platform.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Platform</h4>
+        <ul class="footer-links">
+          <li class="footer-link-item"><a href="/verify" class="footer-link">Verify Certificate</a></li>
+          <li class="footer-link-item"><a href="/directory" class="footer-link">Public Directory</a></li>
+          <li class="footer-link-item"><a href="#howItWorks" class="footer-link">How It Works</a></li>
+          <li class="footer-link-item"><a href="#features" class="footer-link">Features</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Portals</h4>
+        <ul class="footer-links">
+          <li class="footer-link-item"><a href="/login" class="footer-link">Institution Login</a></li>
+          <li class="footer-link-item"><a href="/register" class="footer-link">Institution Registration</a></li>
+          <li class="footer-link-item"><a href="/login" class="footer-link">Admin Portal</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Security & Terms</h4>
+        <ul class="footer-links">
+          <li class="footer-link-item"><a href="#security" class="footer-link">Cryptographic Standards</a></li>
+          <li class="footer-link-item"><a href="#security" class="footer-link">Privacy Safeguards</a></li>
+          <li class="footer-link-item"><span class="footer-link" style="color:var(--color-text-muted);">Compliance Demo v1.0</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div>&copy; 2026 CertiTrust Technologies. All rights reserved. Original branding and architecture.</div>
+      <div style="display: flex; gap: 16px;">
+        <span style="color: var(--color-cyan);">Secure SSL / TLS</span>
+        <span>•</span>
+        <span>Zero-Trust Architecture</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/verification.js"></script>
+  <script>
+    // Stakeholder Tabs Interactive Switcher
+    document.querySelectorAll('.stakeholder-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const pane = btn.getAttribute('data-pane');
+        document.querySelectorAll('.stakeholder-tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.stakeholder-pane').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(`pane-${pane}`)?.classList.add('active');
+      });
+    });
+
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        item.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+</html>

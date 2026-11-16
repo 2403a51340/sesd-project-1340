@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify Certificate – CertiTrust Credential Authentication</title>
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/landing.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <nav class="navbar" id="mainNavbar">
+    <div class="container nav-container">
+      <a href="/" class="brand-logo">
+        <div class="brand-icon-shield">
+          <i data-lucide="shield-check" style="width: 22px; height: 22px;"></i>
+        </div>
+        <span>CertiTrust</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/verify" class="nav-link active">Verify Certificate</a></li>
+        <li><a href="/directory" class="nav-link">Directory</a></li>
+        <li><a href="/login" class="nav-link">Institution Portal</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="/login" class="btn btn-secondary btn-sm">Login</a>
+        <a href="/register" class="btn btn-primary btn-sm">Get Started</a>
+      </div>
+
+      <button class="mobile-menu-btn" aria-label="Toggle menu">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Verification Search Header -->
+  <section class="section-py" style="background: radial-gradient(100% 80% at 50% 0%, rgba(49, 94, 251, 0.08) 0%, rgba(246, 248, 252, 0) 100%), var(--color-bg-main); padding-bottom: var(--space-8);">
+    <div class="container" style="max-width: 820px;">
+      <div class="section-header" style="margin-bottom: var(--space-8);">
+        <span class="section-tag">Authoritative Verification</span>
+        <h1 class="section-title" style="font-size: clamp(2rem, 3.5vw, 2.75rem);">Verify a Certificate</h1>
+        <p class="section-desc">
+          Enter a unique certificate ID to authenticate its cryptographic record, issuing authority, and live validity status.
+        </p>
+      </div>
+
+      <!-- Verification Input Card -->
+      <div class="card" style="padding: 32px; box-shadow: var(--shadow-xl); border-radius: var(--radius-lg);">
+        <form class="verify-form" id="mainVerifyForm">
+          <div class="form-group" style="margin-bottom: 20px;">
+            <label class="form-label" style="font-size: 0.95rem;">
+              Unique Certificate Identifier <span class="required">*</span>
+            </label>
+            <div class="input-wrapper">
+              <i data-lucide="hash" class="input-icon"></i>
+              <input
+                type="text"
+                id="certificateIdInput"
+                class="form-input input-with-icon verify-input"
+                placeholder="e.g. CT2026000001"
+                style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700; text-transform: uppercase; padding: 14px 16px 14px 44px;"
+                required
+                autocomplete="off"
+              >
+            </div>
+            <div class="form-hint" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+              <span>The certificate ID can be found at the bottom-left or footer of any official credential.</span>
+              <button type="button" id="clearVerifyBtn" style="background:transparent; border:none; color:var(--color-text-secondary); cursor:pointer; font-size:0.8rem; text-decoration:underline;">
+                Clear input
+              </button>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+            <button type="submit" class="btn btn-primary btn-lg" style="flex: 1;">
+              <i data-lucide="shield-check"></i> Authenticate Certificate
+            </button>
+          </div>
+        </form>
+
+        <!-- Quick Demo Chips -->
+        <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--color-border);">
+          <div style="font-size: 0.775rem; text-transform: uppercase; font-weight: 700; color: var(--color-text-muted); margin-bottom: 8px;">
+            Quick Demo Test Records:
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn btn-secondary btn-sm demo-chip" data-id="CT2026000001">
+              <span class="status-pill status-valid" style="padding: 2px 6px; font-size:0.7rem;">Valid</span> CT2026000001
+            </button>
+            <button class="btn btn-secondary btn-sm demo-chip" data-id="CT2026000002">
+              <span class="status-pill status-valid" style="padding: 2px 6px; font-size:0.7rem;">Valid</span> CT2026000002
+            </button>
+            <button class="btn btn-secondary btn-sm demo-chip" data-id="CT2026000003">
+              <span class="status-pill status-revoked" style="padding: 2px 6px; font-size:0.7rem;">Revoked</span> CT2026000003
+            </button>
+            <button class="btn btn-secondary btn-sm demo-chip" data-id="CT2026000004">
+              <span class="status-pill status-expired" style="padding: 2px 6px; font-size:0.7rem;">Expired</span> CT2026000004
+            </button>
+            <button class="btn btn-secondary btn-sm demo-chip" data-id="CT9999999999">
+              <span class="status-pill status-invalid" style="padding: 2px 6px; font-size:0.7rem;">Not Found</span> CT9999999999
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Verification Result Target Area -->
+  <main class="container" style="max-width: 820px; margin-bottom: 80px;">
+    <!-- Scanning Radar Visual (Hidden by default) -->
+    <div id="scanningIndicator" class="hidden" style="text-align: center; padding: 40px 0;">
+      <div style="position: relative; width: 120px; height: 120px; margin: 0 auto 20px auto; border-radius: 50%; border: 2px solid var(--color-royal-blue); display: flex; align-items: center; justify-content: center; overflow: hidden; background: rgba(49, 94, 251, 0.04);">
+        <i data-lucide="shield" style="width: 48px; height: 48px; color: var(--color-royal-blue);"></i>
+        <div style="position: absolute; width: 100%; height: 3px; background: linear-gradient(90deg, transparent, var(--color-cyan), transparent); animation: scanLineAnim 1.4s ease-in-out infinite;"></div>
+      </div>
+      <h4>Executing Multi-Point Cryptographic Check...</h4>
+      <p style="font-size: 0.9rem;">Connecting to verified ledger, evaluating institutional signing status and expiry bounds.</p>
+    </div>
+
+    <!-- Container where dynamic result card is injected -->
+    <div id="verificationResultContainer"></div>
+
+    <!-- Empty State Guidance (Shown when no ID has been submitted yet) -->
+    <div id="verifyEmptyState" class="card" style="padding: 40px; text-align: center; margin-top: 24px; border: 1.5px dashed var(--color-border); background: #FFFFFF;">
+      <div style="width: 56px; height: 56px; border-radius: 50%; background: var(--color-bg-subtle); color: var(--color-royal-blue); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;">
+        <i data-lucide="shield-alert" style="width: 28px; height: 28px;"></i>
+      </div>
+      <h3 style="margin-bottom: 8px;">Awaiting Credential Input</h3>
+      <p style="color: var(--color-text-secondary); max-width: 520px; margin: 0 auto 24px auto;">
+        CertiTrust provides real-time verification against recognized registries. Click any of the demo test buttons above or enter a valid Certificate ID to view the complete authenticated record.
+      </p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; text-align: left; max-width: 680px; margin: 0 auto;">
+        <div style="padding: 14px; background: var(--color-bg-subtle); border-radius: 8px;">
+          <div style="font-weight: 700; font-size: 0.85rem; color: var(--color-status-valid);"><i data-lucide="check" style="width:14px;height:14px;"></i> Active & Valid</div>
+          <div style="font-size: 0.8rem; color: var(--color-text-secondary); margin-top: 4px;">Credentials in good standing issued by approved institutions.</div>
+        </div>
+        <div style="padding: 14px; background: var(--color-bg-subtle); border-radius: 8px;">
+          <div style="font-weight: 700; font-size: 0.85rem; color: var(--color-status-revoked);"><i data-lucide="alert-triangle" style="width:14px;height:14px;"></i> Revoked Records</div>
+          <div style="font-size: 0.8rem; color: var(--color-text-secondary); margin-top: 4px;">Formally invalidated credentials with recorded justification.</div>
+        </div>
+        <div style="padding: 14px; background: var(--color-bg-subtle); border-radius: 8px;">
+          <div style="font-weight: 700; font-size: 0.85rem; color: var(--color-status-expired);"><i data-lucide="clock" style="width:14px;height:14px;"></i> Expired Status</div>
+          <div style="font-size: 0.8rem; color: var(--color-text-secondary); margin-top: 4px;">Time-sensitive certifications past their stated validity date.</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Professional Footer -->
+  <footer class="footer">
+    <div class="container footer-bottom">
+      <div>&copy; 2026 CertiTrust Technologies. Real-Time Digital Credential Verification.</div>
+      <div><a href="/" style="color: var(--color-cyan);">Back to Home</a></div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/verification.js"></script>
+  <script>
+    // Demo Chip Click Listeners
+    document.querySelectorAll('.demo-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const id = chip.getAttribute('data-id');
+        const input = document.getElementById('certificateIdInput');
+        if (input) {
+          input.value = id;
+          performVerification(id);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
